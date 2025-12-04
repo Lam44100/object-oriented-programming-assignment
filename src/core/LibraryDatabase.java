@@ -34,7 +34,7 @@ public class LibraryDatabase {
 
     public BookTitle findBookByTitle(String title) {
         for (BookTitle t : catalog) {
-            if (t.getTitle().equalsIgnoreCase(title))
+            if (t.getTitle().toLowerCase().contains(title.toLowerCase()))
                 return t;
         }
         return null;
@@ -42,7 +42,7 @@ public class LibraryDatabase {
 
     public BookItem findItemByBarcode(String barcode) {
         for (BookItem i : inventory) {
-            if (i.getBarcode().equals(barcode))
+            if (i.getBarcode().equalsIgnoreCase(barcode))
                 return i;
         }
         return null;
@@ -58,5 +58,22 @@ public class LibraryDatabase {
 
     public List<BookItem> getInventory() {
         return inventory;
+    }
+
+    public Person findPersonById(int id) {
+        for (Person p : persons) {
+            if (p.getId() == id) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public List<Loan> getAllLoans() {
+        return this.activeLoans;
+    }
+
+    public void addPerson(Person p) {
+        persons.add(p);
     }
 }

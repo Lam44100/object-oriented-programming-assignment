@@ -1,8 +1,9 @@
 package users;
+
 public abstract class Person {
     private int id;
     private String name;
-    private String password; // In real app, store Hash
+    private String password;
     private String contactInfo;
 
     public Person(int id, String name, String password, String contactInfo) {
@@ -23,4 +24,12 @@ public abstract class Person {
     public int getId() {
         return id;
     }
+
+    public boolean validatePassword(String inputPassword) {
+        return this.password.equals(inputPassword);
+    }
+
+    // Abstract method to force subclasses to identify their role type
+    // This helps in the UI to display "LIBRARIAN" or "MEMBER"
+    public abstract String getRoleType();
 }

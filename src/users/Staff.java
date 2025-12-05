@@ -24,4 +24,13 @@ public class Staff extends Person {
         db.addBookItem(item);
         System.out.println("Item added. Barcode: " + item.getBarcode());
     }
+
+    @Override
+    public String getRoleType() {
+        return role.toString();
+    }
+
+    public StaffRole getRole() {
+        return role;
+    }
 }

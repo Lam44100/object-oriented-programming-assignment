@@ -1,8 +1,8 @@
 package transactions;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 import entities.BookItem;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import users.Borrower;
 
 public class Loan {
@@ -21,12 +21,20 @@ public class Loan {
         this.dueDate = issueDate.plusDays(14); // 2 week loan period
     }
 
+    public int getLoanID() {
+        return loanID;
+    }
+
     public BookItem getBookItem() {
         return bookItem;
     }
 
     public Borrower getBorrower() {
         return borrower;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
     public void markReturned() {

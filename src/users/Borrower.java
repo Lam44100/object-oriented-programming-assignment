@@ -38,4 +38,9 @@ public class Borrower extends Person {
             System.out.println("Book: " + l.getBookItem().getBookTitle().getTitle());
         }
     }
+
+    @Override
+    public String getRoleType() {
+        return "MEMBER";
+    }   
 }

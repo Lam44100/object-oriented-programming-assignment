@@ -1,4 +1,5 @@
 package entities;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +40,12 @@ public class BookTitle {
     public void printDetails() {
         System.out.println("Title: " + title);
         System.out.println("ISBN: " + isbn);
-        System.out.println("Author(s): " + getAuthorNames());
+        System.out.println("Genre: " + genre);
         System.out.println("Publisher: " + publisher);
+        System.out.println("Authors: ");
+        for (Author author : authors) {
+            System.out.println(" - " + author.getName());
+        }
     }
+
 }

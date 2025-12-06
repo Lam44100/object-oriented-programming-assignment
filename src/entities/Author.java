@@ -9,7 +9,16 @@ public class Author {
         this.name = name;
     }
 
+    public int getAuthorID() {
+        return authorID;
+    }
+
     public String getName() {
         return name;
+    }
+
+    // Setter for CRUD
+    public void setName(String name) {
+        this.name = name;
     }
 }

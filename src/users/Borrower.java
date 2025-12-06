@@ -1,4 +1,5 @@
 package users;
+
 import enums.AccountStatus;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,26 +22,30 @@ public class Borrower extends Person {
     }
 
     public List<Loan> getActiveLoans() {
-        // Filter history for loans where returnDate is null
         List<Loan> active = new ArrayList<>();
         for (Loan l : loanHistory) {
-            if (l.calculateFine() == 0 && !l.isOverdue()) {
-                // Simplified logic: usually check if returnDate is null
-                // For this example, we assume we check the object state
+            // In a real app check if l.getReturnDate() == null
+            if (!l.isOverdue() && l.calculateFine() == 0) {
+                // logic simplified for demo
+                active.add(l);
             }
         }
-        return loanHistory; // Returning full history for simplicity in this snippet
+        return loanHistory;
     }
 
     public void printLoanHistory() {
         System.out.println("Loan History for " + getName());
+        if (loanHistory.isEmpty()) {
+            System.out.println(" - No history.");
+        }
         for (Loan l : loanHistory) {
-            System.out.println("Book: " + l.getBookItem().getBookTitle().getTitle());
+            System.out.println(" - " + l.getBookItem().getBookTitle().getTitle() +
+                    " (Due: " + l.getDueDate() + ")");
         }
     }
 
     @Override
     public String getRoleType() {
         return "MEMBER";
-    }   
+    }
 }

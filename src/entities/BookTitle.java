@@ -23,12 +23,38 @@ public class BookTitle {
         this.authors.add(author);
     }
 
+    // Getters
     public String getTitle() {
         return title;
     }
 
     public String getIsbn() {
         return isbn;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    // Setters (Added for CRUD)
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public String getAuthorNames() {
@@ -38,14 +64,12 @@ public class BookTitle {
     }
 
     public void printDetails() {
-        System.out.println("Title: " + title);
-        System.out.println("ISBN: " + isbn);
-        System.out.println("Genre: " + genre);
+        System.out.println("--------------------------------");
+        System.out.println("Title:     " + title);
+        System.out.println("ISBN:      " + isbn);
+        System.out.println("Genre:     " + genre);
         System.out.println("Publisher: " + publisher);
-        System.out.println("Authors: ");
-        for (Author author : authors) {
-            System.out.println(" - " + author.getName());
-        }
+        System.out.println("Authors:   " + getAuthorNames());
+        System.out.println("--------------------------------");
     }
-
 }

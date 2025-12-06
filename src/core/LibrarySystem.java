@@ -15,7 +15,12 @@ public class LibrarySystem {
     public LibrarySystem() {
         this.database = new LibraryDatabase();
         this.scanner = new Scanner(System.in);
-        setupDummyData();
+        // setupDummyData();
+    }
+
+    public static void main(String[] args) {
+        LibrarySystem app = new LibrarySystem();
+        app.run();
     }
 
     // ==========================================
@@ -398,54 +403,57 @@ public class LibrarySystem {
         return (int) (Math.random() * 10000);
     }
 
-    private void setupDummyData() {
-        // Reuse the data setup code provided in the previous answer
-        // ... (Paste the setupDummyData content here) ...
-        // Ensure you add users to the list:
-        // database.addPerson(new Borrower(101, "John", "pass", "contact"));
-        // database.addPerson(new Staff(901, "Admin", "pass", "contact",
-        // StaffRole.LIBRARIAN, 5000));
+    // private void setupDummyData() {
+    // // Reuse the data setup code provided in the previous answer
+    // // ... (Paste the setupDummyData content here) ...
+    // // Ensure you add users to the list:
+    // // database.addPerson(new Borrower(101, "John", "pass", "contact"));
+    // // database.addPerson(new Staff(901, "Admin", "pass", "contact",
+    // // StaffRole.LIBRARIAN, 5000));
 
-        // --- Quick Mock for testing navigation ---
-        Author a1 = new Author(1, "J.K. Rowling");
-        Author a2 = new Author(2, "J.R.R. Tolkien");
-        Author a3 = new Author(3, "George R.R. Martin");
-        Author a4 = new Author(4, "Agatha Christie");
+    // // --- Quick Mock for testing navigation ---
+    // Author a1 = new Author(1, "J.K. Rowling");
+    // Author a2 = new Author(2, "J.R.R. Tolkien");
+    // Author a3 = new Author(3, "George R.R. Martin");
+    // Author a4 = new Author(4, "Agatha Christie");
 
-        BookTitle t1 = new BookTitle("978-1", "Harry Potter", "Fantasy", "Bloomsbury");
-        BookTitle t2 = new BookTitle("978-2", "The Hobbit", "Fantasy", "HarperCollins");
-        BookTitle t3 = new BookTitle("978-3", "A Game of Thrones", "Fantasy", "Bantam Books");
+    // BookTitle t1 = new BookTitle("978-1", "Harry Potter", "Fantasy",
+    // "Bloomsbury");
+    // BookTitle t2 = new BookTitle("978-2", "The Hobbit", "Fantasy",
+    // "HarperCollins");
+    // BookTitle t3 = new BookTitle("978-3", "A Game of Thrones", "Fantasy", "Bantam
+    // Books");
 
-        
-        t1.addAuthor(a1);
-        t2.addAuthor(a2);
-        t3.addAuthor(a3);
-        t3.addAuthor(a4);
-        
-        database.addBookTitle(t1);
-        database.addBookTitle(t2);
-        database.addBookTitle(t3);
+    // t1.addAuthor(a1);
+    // t2.addAuthor(a2);
+    // t3.addAuthor(a3);
+    // t3.addAuthor(a4);
 
-        BookItem i1 = new BookItem("B001", t1, "A1");
-        database.addBookItem(i1);
-        BookItem i2 = new BookItem("B002", t2, "B2");
-        database.addBookItem(i2);
-        BookItem i3 = new BookItem("B003", t3, "C3");
-        database.addBookItem(i3);
-        BookItem i4 = new BookItem("B004", t3, "C4");
-        database.addBookItem(i4);
+    // database.addBookTitle(t1);
+    // database.addBookTitle(t2);
+    // database.addBookTitle(t3);
 
-        Borrower b1 = new Borrower(101, "John Doe", "pass", "c");
-        Staff s1 = new Staff(901, "Admin", "pass", "c", StaffRole.ADMIN, 5000);
-        Staff s2 = new Staff(902, "Librarian", "pass", "c", StaffRole.LIBRARIAN, 4000);
+    // BookItem i1 = new BookItem("B001", t1, "A1");
+    // database.addBookItem(i1);
+    // BookItem i2 = new BookItem("B002", t2, "B2");
+    // database.addBookItem(i2);
+    // BookItem i3 = new BookItem("B003", t3, "C3");
+    // database.addBookItem(i3);
+    // BookItem i4 = new BookItem("B004", t3, "C4");
+    // database.addBookItem(i4);
 
-        database.addPerson(b1);
-        database.addPerson(s1);
-        database.addPerson(s2);
-    }
+    // Borrower b1 = new Borrower(101, "John Doe", "pass", "c");
+    // Staff s1 = new Staff(901, "Admin", "pass", "c", StaffRole.ADMIN, 5000);
+    // Staff s2 = new Staff(902, "Librarian", "pass", "c", StaffRole.LIBRARIAN,
+    // 4000);
 
-    public static void main(String[] args) {
-        LibrarySystem app = new LibrarySystem();
-        app.run();
-    }
+    // database.addPerson(b1);
+    // database.addPerson(s1);
+    // database.addPerson(s2);
+    // }
+
+    // public static void main(String[] args) {
+    // LibrarySystem app = new LibrarySystem();
+    // app.run();
+    // }
 }

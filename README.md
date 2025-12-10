@@ -77,6 +77,30 @@ src/
 - If you encounter any issues, ensure your JDK is properly installed and your PATH is set up.
 
 ## Contribution
+
+## User Login Credentials (RBAC Demo)
+The system uses Role-Based Access Control (RBAC) with the following default users:
+
+| Role   | Name           | User ID | Username         | Password   | Email             |
+|--------|----------------|---------|------------------|------------|-------------------|
+| Admin  | Super Admin    | 1       | admin@lib.com    | admin123   | admin@lib.com     |
+| Staff  | Alice Staff    | 2       | alice@lib.com    | staff1     | alice@lib.com     |
+| Staff  | Bob Staff      | 3       | bob@lib.com      | staff2     | bob@lib.com       |
+| Member | Charlie Member | 4       | charlie@gmail.com| pass1      | charlie@gmail.com |
+| Member | Dave Member    | 5       | dave@gmail.com   | pass2      | dave@gmail.com    |
+| Member | Eve Member     | 6       | eve@gmail.com    | pass3      | eve@gmail.com     |
+
+**Login Instructions:**
+- Use the User ID and Password above to log in as different roles.
+- Admins have full access to CRUD operations and management features.
+- Staff can manage loans and view member info.
+- Members can view/search catalog and their own loans.
+
+**Note:**
+- You can add or remove users via the Admin menu in the running application.
+- All data is in-memory and resets on each run.
+
+---
 Feel free to explore the code, make improvements, and ask questions if you're new to Java or object-oriented programming!
 
 ## Dependency Management

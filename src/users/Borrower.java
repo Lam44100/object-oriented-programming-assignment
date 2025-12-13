@@ -24,13 +24,13 @@ public class Borrower extends Person {
     public List<Loan> getActiveLoans() {
         List<Loan> active = new ArrayList<>();
         for (Loan l : loanHistory) {
-            // In a real app check if l.getReturnDate() == null
-            if (!l.isOverdue() && l.calculateFine() == 0) {
-                // logic simplified for demo
+            // FIX 2: An active loan is one that has NOT been marked as returned.
+            if (l.getReturnDate() == null) {
                 active.add(l);
             }
         }
-        return loanHistory;
+        // FIX 3: Return the filtered 'active' list, not the whole 'loanHistory'.
+        return active;
     }
 
     public void printLoanHistory() {
@@ -39,8 +39,13 @@ public class Borrower extends Person {
             System.out.println(" - No history.");
         }
         for (Loan l : loanHistory) {
+            // IMPROVEMENT: Show return date if the book has been returned
+            String dateInfo = (l.getReturnDate() != null)
+                    ? "Returned: " + l.getReturnDate()
+                    : "Due: " + l.getDueDate();
+
             System.out.println(" - " + l.getBookItem().getBookTitle().getTitle() +
-                    " (Due: " + l.getDueDate() + ")");
+                    " (" + dateInfo + ")");
         }
     }
 

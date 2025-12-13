@@ -90,6 +90,16 @@ public class LibraryDatabase {
         return null;
     }
 
+    // FIX 4: Added method to find the specific active loan linked to the item being
+    // returned.
+    public Loan findActiveLoanByBookItem(BookItem item) {
+        for (Loan loan : activeLoans) {
+            if (loan.getBookItem().equals(item))
+                return loan;
+        }
+        return null;
+    }
+
     public Person findPersonById(int id) {
         for (Person p : persons) {
             if (p.getId() == id)

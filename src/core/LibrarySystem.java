@@ -238,11 +238,28 @@ public class LibrarySystem {
         String bc = readString();
         BookItem item = database.findItemByBarcode(bc);
         if (item != null && item.getStatus() == BookStatus.LOANED) {
+
+            // FIX 5: Find the active Loan and close it.
+            Loan loan = database.findActiveLoanByBookItem(item);
+
+            if (loan != null) {
+                loan.markReturned(); // Mark the loan as returned (sets returnDate)
+
+                // Calculate Fine
+                double fine = loan.calculateFine();
+                if (fine > 0) {
+                    System.out.println("ALERT: Book is Overdue. Fine calculated: $" + String.format("%.2f", fine));
+                }
+
+                database.removeLoan(loan); // Remove from the database's active loan list
+            }
+
+            // Update the BookItem status
             item.setStatus(BookStatus.AVAILABLE);
-            // In a real system, you'd close the specific Loan record here
+
             System.out.println("Book Returned.");
         } else {
-            System.out.println("Item not currently loaned.");
+            System.out.println("Item not currently loaned or not found.");
         }
     }
 

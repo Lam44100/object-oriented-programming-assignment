@@ -37,6 +37,10 @@ public class Loan {
         return dueDate;
     }
 
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
     public void markReturned() {
         this.returnDate = LocalDate.now();
     }

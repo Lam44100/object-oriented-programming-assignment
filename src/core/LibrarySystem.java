@@ -11,6 +11,15 @@ public class LibrarySystem {
     private Scanner scanner;
     private Person loggedInUser;
 
+    // ANSI Escape Codes for TUI-like formatting (Works on most modern terminals)
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_BOLD = "\u001B[1m";
+
     public LibrarySystem() {
         this.database = new LibraryDatabase();
         this.scanner = new Scanner(System.in);
@@ -20,19 +29,20 @@ public class LibrarySystem {
     public void run() {
         boolean running = true;
         while (running) {
-            printHeader("MAIN MENU");
-            System.out.println("1. Login");
-            System.out.println("2. Exit System");
-            System.out.print("Select: ");
+            printHeader(ANSI_BOLD + ANSI_BLUE + "MAIN MENU" + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "1. Login" + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "2. Exit System" + ANSI_RESET);
+            System.out.print(ANSI_YELLOW + "Select: " + ANSI_RESET);
             String choice = readString();
 
             switch (choice) {
                 case "1" -> handleLogin();
                 case "2" -> {
-                    System.out.println("Goodbye!");
+                    System.out.println(
+                            ANSI_GREEN + "\n>>> Goodbye! Thank you for using the Library System. <<<" + ANSI_RESET);
                     running = false;
                 }
-                default -> System.out.println("Invalid option.");
+                default -> System.out.println(ANSI_RED + "Invalid option." + ANSI_RESET);
             }
         }
     }
@@ -43,13 +53,13 @@ public class LibrarySystem {
         try {
             id = Integer.parseInt(readString());
         } catch (NumberFormatException e) {
-            System.out.println("Invalid ID format.");
+            System.out.println(ANSI_RED + "Invalid ID format." + ANSI_RESET);
             return;
         }
 
         Person person = database.findPersonById(id);
         if (person == null) {
-            System.out.println("User not found.");
+            System.out.println(ANSI_RED + "User not found." + ANSI_RESET);
             return;
         }
 
@@ -58,7 +68,8 @@ public class LibrarySystem {
 
         if (person.validatePassword(pass)) {
             loggedInUser = person;
-            System.out.println("Welcome, " + person.getName() + " [" + person.getRoleType() + "]");
+            System.out.println(ANSI_GREEN + "Welcome, " + ANSI_BOLD + person.getName() + ANSI_RESET + ANSI_GREEN + " ["
+                    + person.getRoleType() + "]" + ANSI_RESET);
 
             // Route based on Class Type and Role
             if (person instanceof Borrower) {
@@ -72,7 +83,7 @@ public class LibrarySystem {
                 }
             }
         } else {
-            System.out.println("Invalid Password.");
+            System.out.println(ANSI_RED + "Invalid Password." + ANSI_RESET);
         }
     }
 
@@ -83,14 +94,14 @@ public class LibrarySystem {
     private void showMemberMenu(Borrower member) {
         boolean active = true;
         while (active) {
-            printHeader("MEMBER MENU | " + member.getName());
-            System.out.println("1. Search Catalog");
-            System.out.println("2. Show Catalog (All Titles)");
-            System.out.println("3. Show Available Books (All Items)");
-            System.out.println("4. My Active Loans");
-            System.out.println("5. My Loan History");
-            System.out.println("0. Logout");
-            System.out.print("Select: ");
+            printHeader(ANSI_BOLD + ANSI_BLUE + "MEMBER MENU | " + member.getName() + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "1. Search Catalog" + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "2. Show Catalog (All Titles)" + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "3. Show Available Books (All Items)" + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "4. My Active Loans" + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "5. My Loan History" + ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "0. Logout" + ANSI_RESET);
+            System.out.print(ANSI_YELLOW + "Select: " + ANSI_RESET);
 
             switch (readString()) {
                 case "1" -> actionSearchCatalog();
@@ -99,7 +110,7 @@ public class LibrarySystem {
                 case "4" -> actionViewMyActiveLoans(member);
                 case "5" -> member.printLoanHistory();
                 case "0" -> active = false;
-                default -> System.out.println("Invalid.");
+                default -> System.out.println(ANSI_RED + "Invalid." + ANSI_RESET);
             }
             if (active)
                 waitForEnter();
@@ -109,16 +120,16 @@ public class LibrarySystem {
     private void showStaffMenu(Staff staff) {
         boolean active = true;
         while (active) {
-            printHeader("STAFF MENU | " + staff.getName());
-            System.out.println("1. Search Catalog");
-            System.out.println("2. Show Catalog (All Titles)");
-            System.out.println("3. Show Available Books (All Items)");
-            System.out.println("4. Issue Book");
-            System.out.println("5. Return Book");
-            System.out.println("6. Search Member Active Loans");
-            System.out.println("7. Search Member Loan History");
-            System.out.println("0. Logout");
-            System.out.print("Select: ");
+            printHeader(ANSI_BOLD + ANSI_BLUE + "STAFF MENU | " + staff.getName() + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "1. Search Catalog" + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "2. Show Catalog (All Titles)" + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "3. Show Available Books (All Items)" + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "4. Issue Book" + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "5. Return Book" + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "6. Search Member Active Loans" + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "7. Search Member Loan History" + ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "0. Logout" + ANSI_RESET);
+            System.out.print(ANSI_YELLOW + "Select: " + ANSI_RESET);
 
             switch (readString()) {
                 case "1" -> actionSearchCatalog();
@@ -129,7 +140,7 @@ public class LibrarySystem {
                 case "6" -> actionSearchMemberActiveLoans();
                 case "7" -> actionSearchMemberHistory();
                 case "0" -> active = false;
-                default -> System.out.println("Invalid.");
+                default -> System.out.println(ANSI_RED + "Invalid." + ANSI_RESET);
             }
             if (active)
                 waitForEnter();
@@ -139,16 +150,16 @@ public class LibrarySystem {
     private void showAdminMenu(Staff admin) {
         boolean active = true;
         while (active) {
-            printHeader("ADMIN MENU | " + admin.getName());
-            System.out.println("1. Search Catalog");
-            System.out.println("2. Show Catalog (All Titles)");
-            System.out.println("3. Show Available Books (All Items)");
-            System.out.println("4. Manage Book Titles (CRUD)");
-            System.out.println("5. Manage Book Items (CRUD)");
-            System.out.println("6. Manage Authors (CRUD)");
-            System.out.println("7. Manage Persons (CRUD)");
-            System.out.println("0. Logout");
-            System.out.print("Select: ");
+            printHeader(ANSI_BOLD + ANSI_BLUE + "ADMIN MENU | " + admin.getName() + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "1. Search Catalog" + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "2. Show Catalog (All Titles)" + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "3. Show Available Books (All Items)" + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "4. Manage Book Titles (CRUD)" + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "5. Manage Book Items (CRUD)" + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "6. Manage Authors (CRUD)" + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "7. Manage Persons (CRUD)" + ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "0. Logout" + ANSI_RESET);
+            System.out.print(ANSI_YELLOW + "Select: " + ANSI_RESET);
 
             switch (readString()) {
                 case "1" -> actionSearchCatalog();
@@ -159,7 +170,7 @@ public class LibrarySystem {
                 case "6" -> menuManageAuthors(admin);
                 case "7" -> menuManagePersons(admin);
                 case "0" -> active = false;
-                default -> System.out.println("Invalid.");
+                default -> System.out.println(ANSI_RED + "Invalid." + ANSI_RESET);
             }
             if (active)
                 waitForEnter();
@@ -177,19 +188,20 @@ public class LibrarySystem {
         if (t != null)
             t.printDetails();
         else
-            System.out.println("No match found.");
+            System.out.println(ANSI_YELLOW + "No match found." + ANSI_RESET);
     }
 
     private void actionShowCatalog() {
-        System.out.println("--- FULL CATALOG ---");
+        System.out.println(ANSI_BOLD + "\n--- FULL CATALOG ---" + ANSI_RESET);
         for (BookTitle t : database.getCatalog()) {
             t.printDetails();
         }
     }
 
     private void actionShowAllItems() {
-        System.out.println("--- ALL PHYSICAL ITEMS ---");
-        System.out.printf("%-10s | %-20s | %-10s | %-10s%n", "Barcode", "Title", "Status", "Location");
+        System.out.println(ANSI_BOLD + "\n--- ALL PHYSICAL ITEMS ---" + ANSI_RESET);
+        System.out.printf(ANSI_BOLD + "%-10s | %-20s | %-10s | %-10s%n" + ANSI_RESET, "Barcode", "Title", "Status",
+                "Location");
         for (BookItem i : database.getInventory()) {
             System.out.printf("%-10s | %-20s | %-10s | %-10s%n",
                     i.getBarcode(),
@@ -200,9 +212,13 @@ public class LibrarySystem {
     }
 
     private void actionViewMyActiveLoans(Borrower b) {
-        System.out.println("Your Active Loans:");
+        System.out.println(ANSI_BOLD + "\nYour Active Loans:" + ANSI_RESET);
+        if (b.getActiveLoans().isEmpty()) {
+            System.out.println(ANSI_YELLOW + " - No active loans found." + ANSI_RESET);
+        }
         for (Loan l : b.getActiveLoans()) {
-            System.out.println("- " + l.getBookItem().getBookTitle().getTitle() + " (Due: " + l.getDueDate() + ")");
+            System.out.println("- " + l.getBookItem().getBookTitle().getTitle() + " (Due: " + ANSI_RED + l.getDueDate()
+                    + ANSI_RESET + ")");
         }
     }
 
@@ -215,7 +231,7 @@ public class LibrarySystem {
         int bid = Integer.parseInt(readString());
         Person p = database.findPersonById(bid);
         if (!(p instanceof Borrower)) {
-            System.out.println("Not a valid borrower.");
+            System.out.println(ANSI_RED + "Not a valid borrower." + ANSI_RESET);
             return;
         }
 
@@ -227,9 +243,9 @@ public class LibrarySystem {
             database.addLoan(l);
             ((Borrower) p).addLoan(l);
             item.setStatus(BookStatus.LOANED);
-            System.out.println("Book Issued.");
+            System.out.println(ANSI_GREEN + "Book Issued." + ANSI_RESET);
         } else {
-            System.out.println("Item not available.");
+            System.out.println(ANSI_RED + "Item not available." + ANSI_RESET);
         }
     }
 
@@ -239,7 +255,7 @@ public class LibrarySystem {
         BookItem item = database.findItemByBarcode(bc);
         if (item != null && item.getStatus() == BookStatus.LOANED) {
 
-            // FIX 5: Find the active Loan and close it.
+            // Find the active Loan and close it.
             Loan loan = database.findActiveLoanByBookItem(item);
 
             if (loan != null) {
@@ -248,7 +264,8 @@ public class LibrarySystem {
                 // Calculate Fine
                 double fine = loan.calculateFine();
                 if (fine > 0) {
-                    System.out.println("ALERT: Book is Overdue. Fine calculated: $" + String.format("%.2f", fine));
+                    System.out.println(ANSI_YELLOW + ANSI_BOLD + "ALERT: Book is Overdue." + ANSI_RESET + ANSI_YELLOW
+                            + " Fine calculated: $" + String.format("%.2f", fine) + ANSI_RESET);
                 }
 
                 database.removeLoan(loan); // Remove from the database's active loan list
@@ -257,9 +274,9 @@ public class LibrarySystem {
             // Update the BookItem status
             item.setStatus(BookStatus.AVAILABLE);
 
-            System.out.println("Book Returned.");
+            System.out.println(ANSI_GREEN + "Book Returned." + ANSI_RESET);
         } else {
-            System.out.println("Item not currently loaned or not found.");
+            System.out.println(ANSI_RED + "Item not currently loaned or not found." + ANSI_RESET);
         }
     }
 
@@ -271,10 +288,10 @@ public class LibrarySystem {
             if (p instanceof Borrower) {
                 actionViewMyActiveLoans((Borrower) p);
             } else {
-                System.out.println("User is not a borrower.");
+                System.out.println(ANSI_RED + "User is not a borrower." + ANSI_RESET);
             }
         } catch (Exception e) {
-            System.out.println("Invalid ID.");
+            System.out.println(ANSI_RED + "Invalid ID." + ANSI_RESET);
         }
     }
 
@@ -286,10 +303,10 @@ public class LibrarySystem {
             if (p instanceof Borrower) {
                 ((Borrower) p).printLoanHistory();
             } else {
-                System.out.println("User is not a borrower.");
+                System.out.println(ANSI_RED + "User is not a borrower." + ANSI_RESET);
             }
         } catch (Exception e) {
-            System.out.println("Invalid ID.");
+            System.out.println(ANSI_RED + "Invalid ID." + ANSI_RESET);
         }
     }
 
@@ -298,7 +315,9 @@ public class LibrarySystem {
     // ==========================================
 
     private void menuManageTitles(Staff admin) {
+        System.out.println(ANSI_BOLD + "\n--- MANAGE TITLES ---" + ANSI_RESET);
         System.out.println("1. Add Title\n2. Update Title\n3. Delete Title");
+        System.out.print(ANSI_YELLOW + "Select: " + ANSI_RESET);
         String c = readString();
         if (c.equals("1")) {
             System.out.print("ISBN: ");
@@ -315,7 +334,7 @@ public class LibrarySystem {
             if (a != null)
                 t.addAuthor(a);
             else
-                System.out.println("Warning: Author not found, added without author.");
+                System.out.println(ANSI_YELLOW + "Warning: Author not found, added without author." + ANSI_RESET);
 
             admin.addNewBookTitle(t, database);
         } else if (c.equals("2")) {
@@ -324,20 +343,26 @@ public class LibrarySystem {
             if (t != null) {
                 System.out.print("New Title: ");
                 t.setTitle(readString());
-                System.out.println("Updated.");
+                System.out.println(ANSI_GREEN + "Updated." + ANSI_RESET);
+            } else {
+                System.out.println(ANSI_RED + "Title not found." + ANSI_RESET);
             }
         } else if (c.equals("3")) {
             System.out.print("Enter ISBN to delete: ");
             BookTitle t = database.findBookByISBN(readString());
             if (t != null) {
                 database.removeBookTitle(t);
-                System.out.println("Deleted.");
+                System.out.println(ANSI_GREEN + "Deleted." + ANSI_RESET);
+            } else {
+                System.out.println(ANSI_RED + "Title not found." + ANSI_RESET);
             }
         }
     }
 
     private void menuManageItems(Staff admin) {
+        System.out.println(ANSI_BOLD + "\n--- MANAGE ITEMS ---" + ANSI_RESET);
         System.out.println("1. Add Item\n2. Delete Item");
+        System.out.print(ANSI_YELLOW + "Select: " + ANSI_RESET);
         String c = readString();
         if (c.equals("1")) {
             System.out.print("Link to ISBN: ");
@@ -346,36 +371,46 @@ public class LibrarySystem {
                 System.out.print("New Barcode: ");
                 String bc = readString();
                 admin.addBookItem(new BookItem(bc, t, "Stack"), database);
+            } else {
+                System.out.println(ANSI_RED + "Book Title (ISBN) not found." + ANSI_RESET);
             }
         } else if (c.equals("2")) {
             System.out.print("Barcode to delete: ");
             BookItem i = database.findItemByBarcode(readString());
             if (i != null) {
                 database.removeBookItem(i);
-                System.out.println("Deleted.");
+                System.out.println(ANSI_GREEN + "Deleted." + ANSI_RESET);
+            } else {
+                System.out.println(ANSI_RED + "Item not found." + ANSI_RESET);
             }
         }
     }
 
     private void menuManageAuthors(Staff admin) {
+        System.out.println(ANSI_BOLD + "\n--- MANAGE AUTHORS ---" + ANSI_RESET);
         System.out.println("1. Add Author\n2. Delete Author");
+        System.out.print(ANSI_YELLOW + "Select: " + ANSI_RESET);
         String c = readString();
         if (c.equals("1")) {
             System.out.print("Name: ");
             database.addAuthor(new Author((int) (Math.random() * 1000), readString()));
-            System.out.println("Added.");
+            System.out.println(ANSI_GREEN + "Added." + ANSI_RESET);
         } else if (c.equals("2")) {
             System.out.print("Name to delete: ");
             Author a = database.findAuthorByName(readString());
             if (a != null) {
                 database.removeAuthor(a);
-                System.out.println("Deleted.");
+                System.out.println(ANSI_GREEN + "Deleted." + ANSI_RESET);
+            } else {
+                System.out.println(ANSI_RED + "Author not found." + ANSI_RESET);
             }
         }
     }
 
     private void menuManagePersons(Staff admin) {
+        System.out.println(ANSI_BOLD + "\n--- MANAGE PERSONS (Users) ---" + ANSI_RESET);
         System.out.println("1. Add Borrower\n2. Add Staff\n3. Delete Person");
+        System.out.print(ANSI_YELLOW + "Select: " + ANSI_RESET);
         String c = readString();
         if (c.equals("1") || c.equals("2")) {
             System.out.print("ID: ");
@@ -388,13 +423,15 @@ public class LibrarySystem {
                 database.addPerson(new Borrower(id, name, pass, "Contact"));
             else
                 database.addPerson(new Staff(id, name, pass, "Contact", StaffRole.STAFF, 3000));
-            System.out.println("User added.");
+            System.out.println(ANSI_GREEN + "User added." + ANSI_RESET);
         } else if (c.equals("3")) {
             System.out.print("ID to delete: ");
             Person p = database.findPersonById(Integer.parseInt(readString()));
             if (p != null) {
                 database.removePerson(p);
-                System.out.println("Deleted.");
+                System.out.println(ANSI_GREEN + "Deleted." + ANSI_RESET);
+            } else {
+                System.out.println(ANSI_RED + "Person not found." + ANSI_RESET);
             }
         }
     }
@@ -403,7 +440,7 @@ public class LibrarySystem {
     // DUMMY DATA SETUP
     // ==========================================
     private void setupDummyData() {
-        System.out.println("Initializing Database...");
+        System.out.println(ANSI_CYAN + "Initializing Database..." + ANSI_RESET);
 
         // 1. Authors (5)
         Author[] authors = new Author[5];
@@ -443,12 +480,14 @@ public class LibrarySystem {
         database.addPerson(new Borrower(5, "Dave Member", "pass2", "dave@gmail.com"));
         database.addPerson(new Borrower(6, "Eve Member", "pass3", "eve@gmail.com"));
 
-        System.out.println("Data Loaded: 5 Authors, 10 Titles, 25 Items, 6 Users.");
+        System.out.println(ANSI_CYAN + "Data Loaded: 5 Authors, 10 Titles, 25 Items, 6 Users." + ANSI_RESET);
     }
 
     // Helpers
     private void printHeader(String title) {
-        System.out.println("\n=== " + title + " ===");
+        System.out.println("\n" + ANSI_BLUE + "==========================================" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "=== " + title + " ===" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "==========================================" + ANSI_RESET);
     }
 
     private String readString() {
@@ -456,7 +495,7 @@ public class LibrarySystem {
     }
 
     private void waitForEnter() {
-        System.out.println("[Press Enter]");
+        System.out.println(ANSI_YELLOW + "\n[Press Enter to continue...]" + ANSI_RESET);
         scanner.nextLine();
     }
 

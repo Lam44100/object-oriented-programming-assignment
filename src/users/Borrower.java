@@ -34,15 +34,27 @@ public class Borrower extends Person {
     }
 
     public void printLoanHistory() {
-        System.out.println("Loan History for " + getName());
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_BOLD = "\u001B[1m";
+        String ANSI_RED = "\u001B[31m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_YELLOW = "\u001B[33m";
+
+        System.out.println(ANSI_BOLD + "\nLoan History for " + getName() + ANSI_RESET);
         if (loanHistory.isEmpty()) {
-            System.out.println(" - No history.");
+            System.out.println(ANSI_YELLOW + " - No history." + ANSI_RESET);
         }
         for (Loan l : loanHistory) {
-            // IMPROVEMENT: Show return date if the book has been returned
-            String dateInfo = (l.getReturnDate() != null)
-                    ? "Returned: " + l.getReturnDate()
-                    : "Due: " + l.getDueDate();
+            // IMPROVEMENT: Show return date if the book has been returned, with status
+            // colors
+            String dateInfo;
+            if (l.getReturnDate() != null) {
+                dateInfo = ANSI_GREEN + "Returned: " + l.getReturnDate() + ANSI_RESET;
+            } else if (l.isOverdue()) {
+                dateInfo = ANSI_RED + "OVERDUE (Due: " + l.getDueDate() + ")" + ANSI_RESET;
+            } else {
+                dateInfo = "Due: " + l.getDueDate();
+            }
 
             System.out.println(" - " + l.getBookItem().getBookTitle().getTitle() +
                     " (" + dateInfo + ")");

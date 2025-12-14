@@ -7,6 +7,7 @@ import transactions.Loan;
 import users.*;
 
 public class LibrarySystem {
+
     private LibraryDatabase database;
     private Scanner scanner;
     private Person loggedInUser;
@@ -36,13 +37,15 @@ public class LibrarySystem {
             String choice = readString();
 
             switch (choice) {
-                case "1" -> handleLogin();
+                case "1" ->
+                    handleLogin();
                 case "2" -> {
                     System.out.println(
                             ANSI_GREEN + "\n>>> Goodbye! Thank you for using the Library System. <<<" + ANSI_RESET);
                     running = false;
                 }
-                default -> System.out.println(ANSI_RED + "Invalid option." + ANSI_RESET);
+                default ->
+                    System.out.println(ANSI_RED + "Invalid option." + ANSI_RESET);
             }
         }
     }
@@ -90,7 +93,6 @@ public class LibrarySystem {
     // ==========================================
     // MENUS BY ROLE
     // ==========================================
-
     private void showMemberMenu(Borrower member) {
         boolean active = true;
         while (active) {
@@ -104,16 +106,24 @@ public class LibrarySystem {
             System.out.print(ANSI_YELLOW + "Select: " + ANSI_RESET);
 
             switch (readString()) {
-                case "1" -> actionSearchCatalog();
-                case "2" -> actionShowCatalog();
-                case "3" -> actionShowAllItems();
-                case "4" -> actionViewMyActiveLoans(member);
-                case "5" -> member.printLoanHistory();
-                case "0" -> active = false;
-                default -> System.out.println(ANSI_RED + "Invalid." + ANSI_RESET);
+                case "1" ->
+                    actionSearchCatalog();
+                case "2" ->
+                    actionShowCatalog();
+                case "3" ->
+                    actionShowAllItems();
+                case "4" ->
+                    actionViewMyActiveLoans(member);
+                case "5" ->
+                    member.printLoanHistory();
+                case "0" ->
+                    active = false;
+                default ->
+                    System.out.println(ANSI_RED + "Invalid." + ANSI_RESET);
             }
-            if (active)
+            if (active) {
                 waitForEnter();
+            }
         }
     }
 
@@ -132,18 +142,28 @@ public class LibrarySystem {
             System.out.print(ANSI_YELLOW + "Select: " + ANSI_RESET);
 
             switch (readString()) {
-                case "1" -> actionSearchCatalog();
-                case "2" -> actionShowCatalog();
-                case "3" -> actionShowAllItems();
-                case "4" -> actionIssueBook(staff);
-                case "5" -> actionReturnBook();
-                case "6" -> actionSearchMemberActiveLoans();
-                case "7" -> actionSearchMemberHistory();
-                case "0" -> active = false;
-                default -> System.out.println(ANSI_RED + "Invalid." + ANSI_RESET);
+                case "1" ->
+                    actionSearchCatalog();
+                case "2" ->
+                    actionShowCatalog();
+                case "3" ->
+                    actionShowAllItems();
+                case "4" ->
+                    actionIssueBook(staff);
+                case "5" ->
+                    actionReturnBook();
+                case "6" ->
+                    actionSearchMemberActiveLoans();
+                case "7" ->
+                    actionSearchMemberHistory();
+                case "0" ->
+                    active = false;
+                default ->
+                    System.out.println(ANSI_RED + "Invalid." + ANSI_RESET);
             }
-            if (active)
+            if (active) {
                 waitForEnter();
+            }
         }
     }
 
@@ -154,41 +174,51 @@ public class LibrarySystem {
             System.out.println(ANSI_CYAN + "1. Search Catalog" + ANSI_RESET);
             System.out.println(ANSI_CYAN + "2. Show Catalog (All Titles)" + ANSI_RESET);
             System.out.println(ANSI_CYAN + "3. Show Available Books (All Items)" + ANSI_RESET);
-            System.out.println(ANSI_GREEN + "4. Manage Book Titles (CRUD)" + ANSI_RESET);
-            System.out.println(ANSI_GREEN + "5. Manage Book Items (CRUD)" + ANSI_RESET);
-            System.out.println(ANSI_GREEN + "6. Manage Authors (CRUD)" + ANSI_RESET);
-            System.out.println(ANSI_GREEN + "7. Manage Persons (CRUD)" + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "4. Manage Book Titles" + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "5. Manage Book Items" + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "6. Manage Authors" + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "7. Manage Persons" + ANSI_RESET);
             System.out.println(ANSI_YELLOW + "0. Logout" + ANSI_RESET);
             System.out.print(ANSI_YELLOW + "Select: " + ANSI_RESET);
 
             switch (readString()) {
-                case "1" -> actionSearchCatalog();
-                case "2" -> actionShowCatalog();
-                case "3" -> actionShowAllItems();
-                case "4" -> menuManageTitles(admin);
-                case "5" -> menuManageItems(admin);
-                case "6" -> menuManageAuthors(admin);
-                case "7" -> menuManagePersons(admin);
-                case "0" -> active = false;
-                default -> System.out.println(ANSI_RED + "Invalid." + ANSI_RESET);
+                case "1" ->
+                    actionSearchCatalog();
+                case "2" ->
+                    actionShowCatalog();
+                case "3" ->
+                    actionShowAllItems();
+                case "4" ->
+                    menuManageTitles(admin);
+                case "5" ->
+                    menuManageItems(admin);
+                case "6" ->
+                    menuManageAuthors(admin);
+                case "7" ->
+                    menuManagePersons(admin);
+                case "0" ->
+                    active = false;
+                default ->
+                    System.out.println(ANSI_RED + "Invalid." + ANSI_RESET);
             }
-            if (active)
+            if (active) {
                 waitForEnter();
+            }
         }
     }
 
     // ==========================================
     // SHARED ACTIONS
     // ==========================================
-
     private void actionSearchCatalog() {
         System.out.print("Enter search keyword: ");
         String q = readString();
         BookTitle t = database.findBookByTitle(q);
-        if (t != null)
+        if (t != null) {
             t.printDetails();
-        else
+        } else {
             System.out.println(ANSI_YELLOW + "No match found." + ANSI_RESET);
+        }
     }
 
     private void actionShowCatalog() {
@@ -225,7 +255,6 @@ public class LibrarySystem {
     // ==========================================
     // STAFF/ADMIN ACTIONS
     // ==========================================
-
     private void actionIssueBook(Staff staff) {
         System.out.print("Borrower ID: ");
         int bid = Integer.parseInt(readString());
@@ -313,7 +342,6 @@ public class LibrarySystem {
     // ==========================================
     // ADMIN CRUD MENUS
     // ==========================================
-
     private void menuManageTitles(Staff admin) {
         System.out.println(ANSI_BOLD + "\n--- MANAGE TITLES ---" + ANSI_RESET);
         System.out.println("1. Add Title\n2. Update Title\n3. Delete Title");
@@ -331,10 +359,11 @@ public class LibrarySystem {
             BookTitle t = new BookTitle(isbn, title, genre, pub);
             System.out.print("Author Name: ");
             Author a = database.findAuthorByName(readString());
-            if (a != null)
+            if (a != null) {
                 t.addAuthor(a);
-            else
+            } else {
                 System.out.println(ANSI_YELLOW + "Warning: Author not found, added without author." + ANSI_RESET);
+            }
 
             admin.addNewBookTitle(t, database);
         } else if (c.equals("2")) {
@@ -419,10 +448,11 @@ public class LibrarySystem {
             String name = readString();
             System.out.print("Pass: ");
             String pass = readString();
-            if (c.equals("1"))
+            if (c.equals("1")) {
                 database.addPerson(new Borrower(id, name, pass, "Contact"));
-            else
+            } else {
                 database.addPerson(new Staff(id, name, pass, "Contact", StaffRole.STAFF, 3000));
+            }
             System.out.println(ANSI_GREEN + "User added." + ANSI_RESET);
         } else if (c.equals("3")) {
             System.out.print("ID to delete: ");
@@ -437,37 +467,78 @@ public class LibrarySystem {
     }
 
     // ==========================================
-    // DUMMY DATA SETUP
+    // DUMMY DATA SETUP (Reconfigured with real examples)
     // ==========================================
     private void setupDummyData() {
         System.out.println(ANSI_CYAN + "Initializing Database..." + ANSI_RESET);
 
         // 1. Authors (5)
-        Author[] authors = new Author[5];
-        for (int i = 0; i < 5; i++) {
-            authors[i] = new Author(i + 1, "Author " + (char) ('A' + i));
-            database.addAuthor(authors[i]);
-        }
+        Author author1 = new Author(1, "Isaac Asimov");
+        Author author2 = new Author(2, "Ursula K. Le Guin");
+        Author author3 = new Author(3, "George Orwell");
+        Author author4 = new Author(4, "Jane Austen");
+        Author author5 = new Author(5, "Ta-Nehisi Coates");
+
+        database.addAuthor(author1);
+        database.addAuthor(author2);
+        database.addAuthor(author3);
+        database.addAuthor(author4);
+        database.addAuthor(author5);
 
         // 2. BookTitles (10)
-        BookTitle[] titles = new BookTitle[10];
-        for (int i = 0; i < 10; i++) {
-            titles[i] = new BookTitle("978-00" + i, "Book Title " + (i + 1), "Genre X", "Publisher Y");
-            // Assign random author
-            titles[i].addAuthor(authors[i % 5]);
-            database.addBookTitle(titles[i]);
+        // Sci-Fi
+        BookTitle title1 = new BookTitle("978-0553293357", "Foundation", "Science Fiction", "Bantam Books");
+        title1.addAuthor(author1);
+        BookTitle title2 = new BookTitle("978-0441478005", "The Left Hand of Darkness", "Science Fiction", "Ace Books");
+        title2.addAuthor(author2);
+        BookTitle title3 = new BookTitle("978-0553293371", "Foundation and Empire", "Science Fiction", "Bantam Books");
+        title3.addAuthor(author1);
+        BookTitle title4 = new BookTitle("978-0061054884", "The Dispossessed", "Science Fiction", "Harper");
+        title4.addAuthor(author2);
+
+        // Classics / Dystopian
+        BookTitle title5 = new BookTitle("978-0451524935", "1984", "Dystopian Classic", "Signet Classics");
+        title5.addAuthor(author3);
+        BookTitle title6 = new BookTitle("978-0141439518", "Pride and Prejudice", "Classic Fiction", "Penguin Classics");
+        title6.addAuthor(author4);
+        BookTitle title7 = new BookTitle("978-0451526342", "Animal Farm", "Political Satire", "Signet Classics");
+        title7.addAuthor(author3);
+        BookTitle title8 = new BookTitle("978-0141439556", "Sense and Sensibility", "Classic Fiction", "Penguin Classics");
+        title8.addAuthor(author4);
+
+        // Non-Fiction / Historical Fiction
+        BookTitle title9 = new BookTitle("978-0812993547", "Between the World and Me", "Non-Fiction", "Spiegel & Grau");
+        title9.addAuthor(author5);
+        BookTitle title10 = new BookTitle("978-0399590597", "The Water Dancer", "Historical Fiction", "One World");
+        title10.addAuthor(author5);
+
+        BookTitle[] titles = {title1, title2, title3, title4, title5, title6, title7, title8, title9, title10};
+        for (BookTitle t : titles) {
+            database.addBookTitle(t);
         }
 
-        // 3. BookItems (25) linked to Titles
+        // 3. BookItems (25 physical copies)
         int itemCounter = 1000;
         for (int i = 0; i < 25; i++) {
             // Distribute items across the 10 titles (approx 2-3 copies each)
             BookTitle t = titles[i % 10];
-            BookItem item = new BookItem("B" + itemCounter++, t, "Shelf " + (i % 5));
+            // Use specific rack locations for more realism
+            String rackLocation;
+            if (i < 4) { // First 4 items are Sci-Fi
+                rackLocation = "SF-" + (i % 2);
+            } else if (i < 8) { // Next 4 items are Classics/Dystopian
+                rackLocation = "Cls-" + (i % 2);
+            } else if (i < 10) { // Next 2 items are Non-Fiction
+                rackLocation = "NF-0";
+            } else { // Repeat distribution
+                rackLocation = "Gen-" + (i % 3);
+            }
+
+            BookItem item = new BookItem("B" + itemCounter++, t, rackLocation);
             database.addBookItem(item);
         }
 
-        // 4. Persons (6 Total: 1 Admin, 2 Staff, 3 Borrowers)
+        // 4. Persons (6 Total: 1 Admin, 2 Staff, 3 Borrowers) - Keeping original data.
         // Admin
         database.addPerson(new Staff(1, "Super Admin", "admin123", "admin@lib.com", StaffRole.ADMIN, 5000));
 
@@ -480,7 +551,7 @@ public class LibrarySystem {
         database.addPerson(new Borrower(5, "Dave Member", "pass2", "dave@gmail.com"));
         database.addPerson(new Borrower(6, "Eve Member", "pass3", "eve@gmail.com"));
 
-        System.out.println(ANSI_CYAN + "Data Loaded: 5 Authors, 10 Titles, 25 Items, 6 Users." + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "Data Loaded: 5 Authors, 10 Titles, 25 Items, 6 Users (Real Data)." + ANSI_RESET);
     }
 
     // Helpers
@@ -500,8 +571,9 @@ public class LibrarySystem {
     }
 
     private String truncate(String s, int len) {
-        if (s.length() > len)
+        if (s.length() > len) {
             return s.substring(0, len - 3) + "...";
+        }
         return s;
     }
 

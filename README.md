@@ -60,16 +60,9 @@ src/
 ### How to Compile and Run
 
 1. **Open a terminal in the project root directory.**
-2. **Compile the source files:**
-   ```powershell
-   javac -d bin src/**/*.java
-   ```
-   This will compile all Java files in `src/` and place the class files in `bin/`.
-3. **Run the program:**
-   ```powershell
-   java -cp bin test
-   ```
-   This will execute the `test.java` main class.
+
+2. **Run the program:**
+   Execute the `test.java` main class.
 
 ### Notes
 - Make sure your terminal's current directory is the project root (where `README.md` is located).

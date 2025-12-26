@@ -1,36 +1,17 @@
 package users;
 
-import core.LibraryDatabase;
-import entities.BookItem;
-import entities.BookTitle;
-import enums.StaffRole;
+public abstract class Staff extends Person {
 
-public class Staff extends Person {
-    private StaffRole role;
     private double salary;
 
-    public Staff(int id, String name, String password, String contactInfo, StaffRole role, double salary) {
+    public Staff(int id, String name, String password, String contactInfo, double salary) {
         super(id, name, password, contactInfo);
-        this.role = role;
         this.salary = salary;
     }
 
-    public void addNewBookTitle(BookTitle title, LibraryDatabase db) {
-        db.addBookTitle(title);
-        System.out.println("Title added: " + title.getTitle());
+    public double getSalary() {
+        return salary;
     }
 
-    public void addBookItem(BookItem item, LibraryDatabase db) {
-        db.addBookItem(item);
-        System.out.println("Item added. Barcode: " + item.getBarcode());
-    }
-
-    @Override
-    public String getRoleType() {
-        return role.toString();
-    }
-
-    public StaffRole getRole() {
-        return role;
-    }
+    // Abstract method implementation from Person is delegated to subclasses (Admin/Librarian)
 }

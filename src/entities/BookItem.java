@@ -1,19 +1,19 @@
 package entities;
-import java.time.LocalDate;
 
 import enums.BookStatus;
+import java.time.LocalDate;
 
 public class BookItem {
+
     private String barcode;
     private BookTitle bookTitle; // Link to metadata
     private BookStatus status;
     private LocalDate purchaseDate;
-    private String rackLocation;
+    // Removed rackLocation attribute
 
-    public BookItem(String barcode, BookTitle bookTitle, String rackLocation) {
+    public BookItem(String barcode, BookTitle bookTitle) { // Removed location parameter
         this.barcode = barcode;
         this.bookTitle = bookTitle;
-        this.rackLocation = rackLocation;
         this.status = BookStatus.AVAILABLE; // Default
         this.purchaseDate = LocalDate.now();
     }
@@ -38,7 +38,7 @@ public class BookItem {
         bookTitle.printDetails();
         System.out.println("Barcode: " + barcode);
         System.out.println("Status: " + status);
-        System.out.println("Location: " + rackLocation);
+        // Removed Location print
         System.out.println("-------------------------");
     }
 }

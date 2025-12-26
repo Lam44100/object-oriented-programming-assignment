@@ -1,44 +1,38 @@
-## Getting Started
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
-
-## Folder Structure
-
-
-# Object-Oriented Programming Assignment
+## Project Introduction
+This project is a Library Management System developed as part of an Object-Oriented Programming assignment. It demonstrates core OOP principles such as inheritance, encapsulation, and polymorphism, and provides functionalities for managing books, authors, users, and transactions in a library environment.
 
 ## Project Structure
 
 ```
-README.md
-bin/
-	core/
-	entities/
-	enums/
-	transactions/
-	users/
-src/
-	test.java
-	core/
-		DatabaseConnection.java
-		LibraryDatabase.java
-		LibrarySystem.java
-	entities/
-		Author.java
-		BookItem.java
-		BookTitle.java
-	enums/
-		AccountStatus.java
-		BookStatus.java
-		RequestStatus.java
-		StaffRole.java
-	transactions/
-		HoldRequest.java
-		Loan.java
-	users/
-		Borrower.java
-		Person.java
-		Staff.java
+object-oriented-programming-assignment/
+├── README.md
+├── bin/
+│   ├── core/
+│   ├── entities/
+│   ├── enums/
+│   ├── transactions/
+│   └── users/
+├── src/
+│   ├── Test.java
+│   ├── core/
+│   │   ├── LibraryDatabase.java
+│   │   └── LibrarySystem.java
+│   ├── entities/
+│   │   ├── Author.java
+│   │   ├── BookItem.java
+│   │   └── BookTitle.java
+│   ├── enums/
+│   │   ├── AccountStatus.java
+│   │   └── BookStatus.java
+│   ├── transactions/
+│   │   └── Loan.java
+│   └── users/
+│       ├── Admin.java
+│       ├── Borrower.java
+│       ├── Librarian.java
+│       ├── Person.java
+│       └──
 ```
 
 ### Folder Overview
@@ -64,12 +58,6 @@ src/
 2. **Run the program:**
    Execute the `test.java` main class.
 
-### Notes
-- Make sure your terminal's current directory is the project root (where `README.md` is located).
-- If you add new Java files, recompile before running.
-- If you encounter any issues, ensure your JDK is properly installed and your PATH is set up.
-
-## Contribution
 
 ## User Login Credentials (RBAC Demo)
 The system uses Role-Based Access Control (RBAC) with the following default users:
@@ -82,6 +70,7 @@ The system uses Role-Based Access Control (RBAC) with the following default user
 | Member | Charlie Member | 4       | charlie@gmail.com| pass1      | charlie@gmail.com |
 | Member | Dave Member    | 5       | dave@gmail.com   | pass2      | dave@gmail.com    |
 | Member | Eve Member     | 6       | eve@gmail.com    | pass3      | eve@gmail.com     |
+
 
 **Login Instructions:**
 - Use the User ID and Password above to log in as different roles.
@@ -96,6 +85,3 @@ The system uses Role-Based Access Control (RBAC) with the following default user
 ---
 Feel free to explore the code, make improvements, and ask questions if you're new to Java or object-oriented programming!
 
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).

@@ -32,7 +32,7 @@ object-oriented-programming-assignment/
 │       ├── Borrower.java
 │       ├── Librarian.java
 │       ├── Person.java
-│       └──
+│       └── Staff.java
 ```
 
 ### Folder Overview

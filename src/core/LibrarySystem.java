@@ -212,8 +212,8 @@ public class LibrarySystem {
         } else {
             BookTitle t = database.findBookByTitle(q);
             if (t != null) {
-                t.printDetails(); 
-            }else {
+                t.printDetails();
+            } else {
                 System.out.println(ANSI_YELLOW + "No match found." + ANSI_RESET);
             }
         }
@@ -297,8 +297,8 @@ public class LibrarySystem {
         int id = readInt("Enter Member ID: ");
         Person p = database.findPersonById(id);
         if (p instanceof Borrower) {
-            actionViewMyActiveLoans((Borrower) p); 
-        }else {
+            actionViewMyActiveLoans((Borrower) p);
+        } else {
             System.out.println(ANSI_RED + "User is not a borrower." + ANSI_RESET);
         }
     }
@@ -307,8 +307,8 @@ public class LibrarySystem {
         int id = readInt("Enter Member ID: ");
         Person p = database.findPersonById(id);
         if (p instanceof Borrower) {
-            ((Borrower) p).printLoanHistory(); 
-        }else {
+            ((Borrower) p).printLoanHistory();
+        } else {
             System.out.println(ANSI_RED + "User is not a borrower." + ANSI_RESET);
         }
     }
@@ -404,8 +404,8 @@ public class LibrarySystem {
         // Show Existing
         System.out.println("Current Authors:");
         if (database.getAuthors().isEmpty()) {
-            System.out.println(" - None."); 
-        }else {
+            System.out.println(" - None.");
+        } else {
             for (Author a : database.getAuthors()) {
                 System.out.printf(" - %d: %s%n", a.getAuthorID(), a.getName());
             }
@@ -456,10 +456,10 @@ public class LibrarySystem {
 
             // Create Specific Classes
             if (c.equals("1")) {
-                database.addPerson(new Borrower(id, name, pass, "Contact")); 
-            }else if (c.equals("2")) {
-                database.addPerson(new Librarian(id, name, pass, "Contact", 3000)); 
-            }else if (c.equals("3")) {
+                database.addPerson(new Borrower(id, name, pass, "Contact"));
+            } else if (c.equals("2")) {
+                database.addPerson(new Librarian(id, name, pass, "Contact", 3000));
+            } else if (c.equals("3")) {
                 database.addPerson(new Admin(id, name, pass, "Contact", 5000));
             }
 
@@ -537,23 +537,80 @@ public class LibrarySystem {
     private void setupDummyData() {
         System.out.println(ANSI_CYAN + "Initializing Database..." + ANSI_RESET);
 
-        Author a1 = new Author(1, "Isaac Asimov");
-        database.addAuthor(a1);
+        // ---------------------------------------------------------
+        // 1. AUTHORS (5 Total)
+        // ---------------------------------------------------------
+        Author[] authors = new Author[5];
+        authors[0] = new Author(1, "J.K. Rowling");
+        authors[1] = new Author(2, "J.R.R. Tolkien");
+        authors[2] = new Author(3, "Agatha Christie");
+        authors[3] = new Author(4, "George Orwell");
+        authors[4] = new Author(5, "Haruki Murakami");
 
-        BookTitle t1 = new BookTitle("978-1", "Foundation", "Sci-Fi", "Bantam");
-        t1.addAuthor(a1);
-        database.addBookTitle(t1);
+        for (Author a : authors) {
+            database.addAuthor(a);
+        }
 
-        // Use 2-arg constructor (No location)
-        database.addBookItem(new BookItem("B1001", t1));
+        // ---------------------------------------------------------
+        // 2. BOOK TITLES (10 Total)
+        // ---------------------------------------------------------
+        BookTitle[] titles = new BookTitle[10];
 
-        // Use new Subclasses
+        // Fantasy
+        titles[0] = new BookTitle("978-1", "Harry Potter 1", "Fantasy", "Scholastic");
+        titles[0].addAuthor(authors[0]);
+        titles[1] = new BookTitle("978-2", "Harry Potter 2", "Fantasy", "Scholastic");
+        titles[1].addAuthor(authors[0]);
+        titles[2] = new BookTitle("978-3", "The Hobbit", "Fantasy", "Houghton");
+        titles[2].addAuthor(authors[1]);
+        titles[3] = new BookTitle("978-4", "The Lord of the Rings", "Fantasy", "Houghton");
+        titles[3].addAuthor(authors[1]);
+
+        // Mystery
+        titles[4] = new BookTitle("978-5", "And Then There Were None", "Mystery", "Harper");
+        titles[4].addAuthor(authors[2]);
+        titles[5] = new BookTitle("978-6", "Murder on the Orient Express", "Mystery", "Harper");
+        titles[5].addAuthor(authors[2]);
+
+        // Classics
+        titles[6] = new BookTitle("978-7", "1984", "Dystopian", "Secker");
+        titles[6].addAuthor(authors[3]);
+        titles[7] = new BookTitle("978-8", "Animal Farm", "Satire", "Secker");
+        titles[7].addAuthor(authors[3]);
+
+        // Fiction
+        titles[8] = new BookTitle("978-9", "Norwegian Wood", "Fiction", "Kodansha");
+        titles[8].addAuthor(authors[4]);
+        titles[9] = new BookTitle("978-10", "Kafka on the Shore", "Fiction", "Kodansha");
+        titles[9].addAuthor(authors[4]);
+
+        for (BookTitle t : titles) {
+            database.addBookTitle(t);
+        }
+
+        // ---------------------------------------------------------
+        // 3. BOOK ITEMS (25 Total)
+        // ---------------------------------------------------------
+        // Distribute 25 items across the 10 titles (approx 2-3 copies each)
+        int barcode = 1000;
+        for (int i = 0; i < 25; i++) {
+            BookTitle t = titles[i % 10]; // Cycles through titles 0-9
+            database.addBookItem(new BookItem("B" + barcode++, t));
+        }
+
+        // ---------------------------------------------------------
+        // 4. USERS (6 Total: 1 Admin, 2 Librarians, 3 Borrowers)
+        // ---------------------------------------------------------
         database.addPerson(new Admin(1, "Super Admin", "admin123", "admin@lib.com", 5000));
+
         database.addPerson(new Librarian(2, "Alice Lib", "staff1", "alice@lib.com", 3000));
         database.addPerson(new Librarian(3, "Bob Lib", "staff2", "bob@lib.com", 3000));
-        database.addPerson(new Borrower(4, "Charlie", "pass1", "charlie@gmail.com"));
 
-        System.out.println(ANSI_CYAN + "Data Loaded (Inheritance Model)." + ANSI_RESET);
+        database.addPerson(new Borrower(4, "Charlie", "pass1", "charlie@gmail.com"));
+        database.addPerson(new Borrower(5, "Dave", "pass2", "dave@gmail.com"));
+        database.addPerson(new Borrower(6, "Eve", "pass3", "eve@gmail.com"));
+
+        System.out.println(ANSI_CYAN + "Data Loaded: 5 Authors, 10 Titles, 25 Items, 6 Users." + ANSI_RESET);
     }
 
     public static void main(String[] args) {

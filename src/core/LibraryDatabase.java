@@ -12,7 +12,7 @@ public class LibraryDatabase {
     private List<BookTitle> catalog;
     private List<BookItem> inventory;
     private List<Person> persons;
-    private List<Author> authors; // Track authors specifically for CRUD
+    private List<Author> authors;
     private List<Loan> activeLoans;
 
     public LibraryDatabase() {
@@ -90,8 +90,6 @@ public class LibraryDatabase {
         return null;
     }
 
-    // FIX 4: Added method to find the specific active loan linked to the item being
-    // returned.
     public Loan findActiveLoanByBookItem(BookItem item) {
         for (Loan loan : activeLoans) {
             if (loan.getBookItem().equals(item))

@@ -1,6 +1,7 @@
 package users;
 
 public abstract class Person {
+
     private int id;
     private String name;
     private String password;
@@ -29,7 +30,5 @@ public abstract class Person {
         return this.password.equals(inputPassword);
     }
 
-    // Abstract method to force subclasses to identify their role type
-    // This helps in the UI to display "LIBRARIAN" or "MEMBER"
     public abstract String getRoleType();
 }

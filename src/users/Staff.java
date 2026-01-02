@@ -12,6 +12,4 @@ public abstract class Staff extends Person {
     public double getSalary() {
         return salary;
     }
-
-    // Abstract method implementation from Person is delegated to subclasses (Admin/Librarian)
 }

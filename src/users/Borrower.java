@@ -24,12 +24,10 @@ public class Borrower extends Person {
     public List<Loan> getActiveLoans() {
         List<Loan> active = new ArrayList<>();
         for (Loan l : loanHistory) {
-            // FIX 2: An active loan is one that has NOT been marked as returned.
             if (l.getReturnDate() == null) {
                 active.add(l);
             }
         }
-        // FIX 3: Return the filtered 'active' list, not the whole 'loanHistory'.
         return active;
     }
 
@@ -45,7 +43,6 @@ public class Borrower extends Person {
             System.out.println(ANSI_YELLOW + " - No history." + ANSI_RESET);
         }
         for (Loan l : loanHistory) {
-            // IMPROVEMENT: Show return date if the book has been returned, with status
             // colors
             String dateInfo;
             if (l.getReturnDate() != null) {

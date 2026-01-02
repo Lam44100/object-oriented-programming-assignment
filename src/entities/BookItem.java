@@ -6,12 +6,11 @@ import java.time.LocalDate;
 public class BookItem {
 
     private String barcode;
-    private BookTitle bookTitle; // Link to metadata
+    private BookTitle bookTitle;
     private BookStatus status;
     private LocalDate purchaseDate;
-    // Removed rackLocation attribute
 
-    public BookItem(String barcode, BookTitle bookTitle) { // Removed location parameter
+    public BookItem(String barcode, BookTitle bookTitle) { 
         this.barcode = barcode;
         this.bookTitle = bookTitle;
         this.status = BookStatus.AVAILABLE; // Default
@@ -38,7 +37,6 @@ public class BookItem {
         bookTitle.printDetails();
         System.out.println("Barcode: " + barcode);
         System.out.println("Status: " + status);
-        // Removed Location print
         System.out.println("-------------------------");
     }
 }

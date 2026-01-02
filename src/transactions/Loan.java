@@ -8,10 +8,10 @@ import users.Borrower;
 public class Loan {
     private int loanID;
     private final Borrower borrower;
-    private final BookItem bookItem; // Links to physical item
+    private final BookItem bookItem; 
     private LocalDate issueDate;
     private LocalDate dueDate;
-    private LocalDate returnDate; // Added for fix
+    private LocalDate returnDate;
 
     public Loan(int loanID, Borrower borrower, BookItem bookItem) {
         this.loanID = loanID;
@@ -37,7 +37,6 @@ public class Loan {
         return dueDate;
     }
 
-    // FIX: Added getter to expose return date for active loan filtering.
     public LocalDate getReturnDate() {
         return returnDate;
     }

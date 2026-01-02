@@ -583,6 +583,7 @@ public class LibrarySystem {
         titles[8].addAuthor(authors[4]);
         titles[9] = new BookTitle("978-10", "Kafka on the Shore", "Fiction", "Kodansha");
         titles[9].addAuthor(authors[4]);
+        titles[9].addAuthor(authors[3]);
 
         for (BookTitle t : titles) {
             database.addBookTitle(t);
@@ -613,7 +614,4 @@ public class LibrarySystem {
         System.out.println(ANSI_CYAN + "Data Loaded: 5 Authors, 10 Titles, 25 Items, 6 Users." + ANSI_RESET);
     }
 
-    public static void main(String[] args) {
-        new LibrarySystem().run();
-    }
 }

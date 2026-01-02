@@ -10,7 +10,7 @@ public class Admin extends Staff {
         super(id, name, password, contactInfo, salary);
     }
 
-    // Admin-specific capabilities (Moved from original Staff class)
+    // Admin-specific capabilities
     public void addNewBookTitle(BookTitle title, LibraryDatabase db) {
         db.addBookTitle(title);
         System.out.println("Title added: " + title.getTitle());
